@@ -1,4 +1,6 @@
 import Navbar from "../components/Navbar";
+import homeIcon from "../assets/svg/homeIcon.svg";
+import { Link } from "react-router-dom";
 import { getAuth, updateEmail, updateProfile } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +61,6 @@ const Profile = () => {
   };
   return (
     <>
-      <Navbar />
       <div className="min-w-screen min-h-screen bg-slate-100">
         <div className="container mx-auto">
           <div className="mx-3 lg:mx-12 pt-4">
@@ -150,15 +151,17 @@ const Profile = () => {
               <h1 className="text-xl font-black">My Listings</h1>
             </div>
             <div>
-              <button
-                type="button"
-                className="py-1 w-20 px-3 bg-green-500 rounded-md text-white hover:opacity-80"
+              <Link
+                to="/create-listing"
+                className="flex space-x-1 py-1 w-full px-3 shadow-md bg-green-500 rounded-md text-white hover:opacity-80"
               >
-                Create
-              </button>
+                <img src={homeIcon} />
+                <div>Sell/Rent</div>
+              </Link>
             </div>
           </div>
         </div>
+        <Navbar />
       </div>
     </>
   );

@@ -69,7 +69,6 @@ const SignUp = () => {
 
   return (
     <>
-      <Navbar />
       <div className="min-w-screen min-h-screen bg-slate-100">
         <div className="container mx-auto">
           <div className="mx-3 lg:mx-12 pt-4">
@@ -143,6 +142,7 @@ const SignUp = () => {
             </div>
           </div>
         </div>
+        <Navbar />
       </div>
     </>
   );

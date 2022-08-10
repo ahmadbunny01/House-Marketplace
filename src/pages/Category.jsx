@@ -14,18 +14,19 @@ import {
 import { db } from "../firebase.config";
 import { Link, useParams } from "react-router-dom";
 
-const Offers = () => {
+const Category = () => {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const params = useParams();
   useEffect(() => {
     const fetchListings = async () => {
       try {
         const listingsRef = collection(db, "listings");
         const q = query(
           listingsRef,
-          where("offer", "==", true),
-          limit(10),
-          orderBy("timestamp", "desc")
+          where("type", "==", params.categoryName),
+          orderBy("timestamp", "desc"),
+          limit(10)
         );
         const querySnap = await getDocs(q);
         let listings = [];
@@ -43,7 +44,7 @@ const Offers = () => {
       }
     };
     fetchListings();
-  }, []);
+  }, [params.categoryName]);
   if (loading) {
     return (
       <>
@@ -79,7 +80,9 @@ const Offers = () => {
         <div className="container mx-auto">
           <div className="mx-3 lg:mx-12 pt-4">
             <h1 className="text-3xl font-black border-l-4 border-green-500 py-3 px-1">
-              Offers
+              Places For{" "}
+              {params.categoryName.charAt(0).toUpperCase() +
+                params.categoryName.slice(1)}
             </h1>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 mx-3 lg:mx-12 mt-12 pb-28">
@@ -89,6 +92,7 @@ const Offers = () => {
                   <Link to="/">
                     <Listing
                       key={item.id}
+                      type={item.type}
                       title={item.data.name}
                       location={item.data.location}
                       price={item.data.regularPrice}
@@ -111,11 +115,18 @@ const Offers = () => {
         <div className="container mx-auto">
           <div className="mx-3 lg:mx-12 pt-4">
             <h1 className="text-3xl font-black border-l-4 border-green-500 py-3 px-1">
-              Offers
+              Places For{" "}
+              {params.categoryName.charAt(0).toUpperCase() +
+                params.categoryName.slice(1)}
             </h1>
           </div>
           <div className="flex mx-3 lg:mx-12 items-center justify-center min-h-[70vh]">
-            <h1 className="text-xl">No Offers Yet {":("}</h1>
+            <h1 className="text-xl">
+              No Listings For{" "}
+              {params.categoryName.charAt(0).toUpperCase() +
+                params.categoryName.slice(1)}{" "}
+              {":("}
+            </h1>
           </div>
         </div>
         <Navbar />
@@ -124,4 +135,4 @@ const Offers = () => {
   );
 };
 
-export default Offers;
+export default Category;
