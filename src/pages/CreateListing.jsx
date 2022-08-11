@@ -24,10 +24,11 @@ const CreateListing = () => {
     parking: false,
     furnished: false,
     location: "",
-    offer: false,
+    offer: true,
     regularPrice: 0,
     discountedPrice: 0,
     images: {},
+    contact: "",
   });
 
   const {
@@ -42,6 +43,7 @@ const CreateListing = () => {
     regularPrice,
     discountedPrice,
     images,
+    contact,
   } = formData;
 
   const auth = getAuth();
@@ -344,7 +346,10 @@ const CreateListing = () => {
               </div>
 
               <div className="flex flex-col w-full mt-3">
-                <label className="font-semibold">Offer</label>
+                <label className="font-semibold">
+                  Offer{" "}
+                  <span className="text-xs text-gray-500">(Discount.)</span>
+                </label>
                 <div className="flex mt-1 w-full space-x-2">
                   <button
                     type="button"
@@ -387,7 +392,21 @@ const CreateListing = () => {
                   <p>{type == "rent" ? "USD/Month" : "USD"}</p>
                 </div>
               </div>
-              <div className={offer ? "flex flex-col w-full mt-3" : "hidden"}>
+              <div className="flex flex-col w-full mt-3">
+                <label className="font-semibold">Landlord Contact:</label>
+                <input
+                  type="text"
+                  name="contact"
+                  value={contact}
+                  onChange={inputHandle}
+                  className="mt-1 px-2 py-2 rounded-lg w-full outline-none"
+                />
+              </div>
+              <div
+                className={
+                  offer ? "flex flex-col w-full mt-3 lg:ml-4" : "hidden"
+                }
+              >
                 <label className="font-semibold">Discounted Price</label>
                 <div className="flex mt-1 w-full space-x-2 items-center">
                   <input
@@ -400,13 +419,7 @@ const CreateListing = () => {
                   <p>USD/month</p>
                 </div>
               </div>
-              <div
-                className={
-                  offer
-                    ? "flex flex-col w-full mt-3 lg:ml-4"
-                    : "flex flex-col w-full mt-3"
-                }
-              >
+              <div className="flex flex-col w-full mt-3 lg:col-span-2">
                 <label className="font-semibold">Images</label>
                 <input
                   type="file"

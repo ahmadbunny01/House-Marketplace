@@ -10,6 +10,7 @@ import PrivateRoute from "./pages/PrivateRoute";
 import Category from "./pages/Category";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SingleListing from "./pages/SingleListing";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/signUp" exact element={<SignUp />} />
         <Route path="/forgotPassword" exact element={<ForgotPassword />} />
         <Route path="/create-listing" exact element={<CreateListing />} />
+        <Route path="/listing/:listingId" exact element={<SingleListing />} />
       </Routes>
       <ToastContainer />
     </>

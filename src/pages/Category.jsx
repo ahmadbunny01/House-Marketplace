@@ -89,7 +89,7 @@ const Category = () => {
             {listings.map((item) => {
               return (
                 <>
-                  <Link to="/">
+                  <Link to={"/listing/" + item.id}>
                     <Listing
                       key={item.id}
                       type={item.type}
