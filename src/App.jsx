@@ -11,6 +11,7 @@ import Category from "./pages/Category";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SingleListing from "./pages/SingleListing";
+import UpdateListing from "./pages/UpdateListing";
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
         <Route path="/forgotPassword" exact element={<ForgotPassword />} />
         <Route path="/create-listing" exact element={<CreateListing />} />
         <Route path="/listing/:listingId" exact element={<SingleListing />} />
+        <Route
+          path="/listing/update/:listingId"
+          exact
+          element={<UpdateListing />}
+        />
       </Routes>
       <ToastContainer />
     </>

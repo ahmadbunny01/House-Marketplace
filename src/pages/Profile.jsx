@@ -15,12 +15,14 @@ import {
   where,
   limit,
   orderBy,
+  deleteDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const Profile = () => {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [toDelete, setToDelete] = useState(null);
   const auth = getAuth();
   const [user, setUser] = useState(auth.currentUser);
   useEffect(() => {
@@ -96,6 +98,17 @@ const Profile = () => {
       changeDetailsEvent();
     } catch (error) {
       toast.error("Failed To Update Profile");
+    }
+  };
+  const onDelete = async (listingId) => {
+    if (window.confirm("Sure You Want To Delete?")) {
+      setLoading(true);
+      await deleteDoc(doc(db, "listings", listingId));
+      const updatedListings = listings.filter(
+        (listing) => listing.id != listingId
+      );
+      setListings(updatedListings);
+      setLoading(false);
     }
   };
   if (loading) {
@@ -232,17 +245,47 @@ const Profile = () => {
             {listings.map((item) => {
               return (
                 <>
-                  <Link to={"/listing/" + item.id}>
-                    <Listing
-                      key={item.id}
-                      title={item.data.name}
-                      location={item.data.location}
-                      price={item.data.regularPrice}
-                      bedrooms={item.data.bedrooms}
-                      bathrooms={item.data.bathrooms}
-                      image={item.data.imageUrls[0]}
-                    />
-                  </Link>
+                  <div className="flex items-center">
+                    <Link to={"/listing/" + item.id}>
+                      <Listing
+                        key={item.id}
+                        title={item.data.name}
+                        location={item.data.location}
+                        price={item.data.regularPrice}
+                        bedrooms={item.data.bedrooms}
+                        bathrooms={item.data.bathrooms}
+                        image={item.data.imageUrls[0]}
+                      />
+                    </Link>
+                    <div className="flex flex-col lg:flex-row items-center space-y-3 lg:space-y-0 lg:space-x-3">
+                      <Link to={"/listing/update/" + item.id}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="blue"
+                        >
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                      </Link>
+                      <button onClick={() => onDelete(item.id)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6 text-red-500"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </>
               );
             })}
