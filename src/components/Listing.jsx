@@ -5,10 +5,10 @@ const Listing = (props) => {
   return (
     <>
       <div className="flex flex-nowrap items-center space-x-3 mt-3">
-        <div className="w-32 h-28 lg:w-56 lg:h-44">
+        <div className="max-w-[8rem] lg:max-w-none h-28 lg:w-56 lg:h-44">
           <img
             src={props.image}
-            className="w-max h-full rounded-lg object-cover"
+            className="w-full h-full rounded-lg object-cover"
           />
         </div>
         <div className="flex flex-col">

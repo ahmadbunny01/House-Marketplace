@@ -426,7 +426,7 @@ const CreateListing = () => {
                   name="images"
                   multiple
                   max={6}
-                  accept=".jpg,.png,.jpeg"
+                  accept=".jpg,.png,.jpeg,.webp"
                   onChange={inputHandle}
                   className="mt-1 px-2 py-2 rounded-lg w-full bg-white"
                 />
