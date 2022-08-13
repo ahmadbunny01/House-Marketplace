@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import homeIcon from "../assets/svg/homeIcon.svg";
+import personIcon from "../assets/svg/personIcon.svg";
 import Listing from "../components/Listing";
 import { Link } from "react-router-dom";
 import { getAuth, updateEmail, updateProfile } from "firebase/auth";
@@ -170,7 +171,10 @@ const Profile = () => {
             }
           >
             <div className="flex flex-col space-y-1">
+              <div className="flex space-x-3">
+              <img src={personIcon} />
               <h1 className="text-xl font-black">Personal Info</h1>
+              </div>
               <p>
                 <span className="font-bold">Name:</span> {user.displayName}
               </p>
@@ -228,7 +232,8 @@ const Profile = () => {
             </form>
           </div>
           <div className="flex mx-3 lg:mx-12 justify-between items-center my-8">
-            <div>
+            <div className="flex space-x-3">
+              <img src={homeIcon} />
               <h1 className="text-xl font-black">My Listings</h1>
             </div>
             <div>
@@ -236,7 +241,6 @@ const Profile = () => {
                 to="/create-listing"
                 className="flex space-x-1 py-1 w-full px-3 shadow-md bg-green-500 rounded-md text-white hover:opacity-80"
               >
-                <img src={homeIcon} />
                 <div>Sell/Rent</div>
               </Link>
             </div>
